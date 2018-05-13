@@ -1,0 +1,84 @@
+body {
+    display:flex;
+    text-align:left;
+    background-color:#0a0a0a;
+    background-image: url('../images/start_game.jpg');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size:contain;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.container{
+    height:700px;
+    margin:0 75px;
+}
+
+header {
+    margin-top:10px;
+}
+
+#logo {
+    width:15%;
+    margin-right:25px;
+}
+
+#message {
+    color: yellowgreen;
+    width:700px;
+    margin: 50px 85px;
+    font-size: 38px;
+}
+
+#start, #start2 {
+    background: #79477c;
+    color: #d0b3e9;
+    padding: 10px;
+}
+
+#board {
+    text-align:center;
+    width:800px;
+}
+
+.card {
+    display:inline-block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height:150px;
+    width:115px;
+    display: inline-block;
+    padding: 30px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.card.match {
+    border:1px solid yellowgreen;
+    pointer-events:none;
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: purple;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: yellowgreen;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
