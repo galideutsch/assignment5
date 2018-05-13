@@ -61,3 +61,10 @@ MemoryGame.generateArray = function(){
     );
 }
 
+MemoryGame.clearBoard = function(){
+    document.getElementById("board").innerHTML = "";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
