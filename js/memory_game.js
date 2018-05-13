@@ -20,3 +20,44 @@ MemoryGame.generateBoard = function(){
     }
 }
 
+MemoryGame.cardClick = function(){
+    var cards = document.getElementsByClassName("flipped");
+    if (cards.length > 0){
+        this.classList.add("flipped");
+        for(var i = 0; i < MemoryGame.numOfCards/2; i++){
+            for(var j = 0; j < MemoryGame.numOfCards/2; j++){
+                if(cards[i] == cards[j]){
+                    cards[i].style.backgroundImage = `url('./images/card${j}.jpg')`;
+                }
+            }
+        }
+        if (cards[0].value == cards[1].value){
+            cards[1].className = "card match";
+            cards[0].className = "card match";
+            if (document.getElementsByClassName("match").length == MemoryGame.numOfCards){
+                function on() {
+                    document.getElementById("overlay").style.display = "visible";
+                }
+            }
+        } 
+        else {
+            cards[1].className = "card";
+            cards[0].className = "card";
+        }
+    } else {
+        this.classList.add("flipped");
+    }
+}
+
+MemoryGame.generateArray = function(){
+    var array = [];
+    for(var i =0; i < MemoryGame.numOfCards; i++){
+        array[i] = Math.floor(i * 0.5);
+    }
+    return array.sort (
+        function(a,b){
+            return 0.5 - Math.random();
+        }
+    );
+}
+
