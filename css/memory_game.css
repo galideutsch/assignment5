@@ -43,6 +43,7 @@ header {
 
 .card {
     display:inline-block;
+    background-image: url('../images/card_backs.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -52,17 +53,23 @@ header {
     padding: 30px;
     margin: 20px;
     cursor: pointer;
+    transform: translateY(180deg);
+    transition-delay: backgroundImage 1s!important;
+    color:transparent;
 }
+
 .card.flipped {
-    transition-delay: 1s;
-    pointer-events:none;
+    transform: translateY(180deg);
 }
+
 .card.match {
-    border:1px solid yellowgreen;
+    border:2px solid yellowgreen;
     pointer-events:none;
 }
 
 #overlay {
+    text-align: center;
+    padding: 100px;
     position: fixed;
     display: none;
     width: 100%;
@@ -71,9 +78,17 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: purple;
+    background-color:#9e1795e0;
     z-index: 2;
     cursor: pointer;
+}
+
+#winner {
+    color: #d0b3e9;
+}
+
+#start2 {
+    margin-top:30px;
 }
 
 #text{

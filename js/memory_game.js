@@ -5,52 +5,56 @@ var MemoryGame = {};
         MemoryGame.clearBoard();
         MemoryGame.generateBoard();
         document.getElementById("message").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
     }
 //Generate board
 MemoryGame.generateBoard = function(){
     var cardArr = MemoryGame.generateArray(); 
-    var board = document.getElementById("board");
     var board = document.getElementById("board");
     // Generate cards and back of card image
     for(var i = 0; i < cardArr.length; i++){
         var card = document.createElement("div");
         card.className = "card";
         card.value = cardArr[i];
-        card.style.backgroundImage = "url('./images/card_backs.png')";
         card.addEventListener("click", MemoryGame.cardClick);
         board.appendChild(card);
     }
 }
 
-MemoryGame.cardClick = function(){
-    var cards = document.getElementsByClassName("flipped");
-    // Flip cards and check for matches
-    if (cards.length > 0){
-        this.classList.add("flipped");
-        for(var i = 0; i < MemoryGame.numOfCards/2; i++){
-            for(var j = 0; j < MemoryGame.numOfCards/2; j++){
-                if(cards[i] == cards[j]){
-                    cards[i].style.backgroundImage = `url('./images/card${j}.jpg')`;
+MemoryGame.cardClick = function(event){
+    event.target.classList.add("flipped");
+    var cards = document.getElementsByClassName("card");
+    var flipped = document.getElementsByClassName("flipped");
+    var imgNum = event.target.value;
+    var clickedCards = [];
+    for (var i = 0; i < flipped.length; i++){
+        event.target.style.backgroundImage = `url('./images/card${imgNum}.jpg')`;
+        clickedCards.push(flipped[i]);
+        
+    }
+    if (clickedCards.length > 1){
+        document.getElementById("board").style.pointerEvents = "none";
+        if (clickedCards[0].value == clickedCards[1].value){
+            clickedCards[1].className = "card match";
+            clickedCards[0].className = "card match";
+            setTimeout(function(){
+                document.getElementById("board").style.pointerEvents = "auto";
+            }, 1);
+            var matches = document.getElementsByClassName("card match");
+                if (matches.length == MemoryGame.numOfCards){
+                    document.getElementById("overlay").style.display = "block";
                 }
+        } else if (clickedCards[0].value !== clickedCards[1].value){
+            function flipCard(){
+                clickedCards[1].className = "card";
+                clickedCards[0].className = "card";
+                clickedCards[1].style.backgroundImage = "url('./images/card_backs.png')";
+                clickedCards[0].style.backgroundImage = "url('./images/card_backs.png')";  
+                document.getElementById("board").style.pointerEvents = "auto";
             }
+            setTimeout(flipCard, 1000);
         }
-        // All cards match
-        if (cards[0].value == cards[1].value){
-            cards[1].className = "card match";
-            cards[0].className = "card match";
-            if (document.getElementsByClassName("match").length == MemoryGame.numOfCards){
-                // Alerts user they won and turns on overlay
-                function on() {
-                    document.getElementById("overlay").style.display = "visible";
-                }
-            }
-        } 
-        else {
-            cards[1].className = "card";
-            cards[0].className = "card";
-        }
-    } else {
-        this.classList.add("flipped");
+        // clickedCards = [];
     }
 }
 
@@ -69,9 +73,4 @@ MemoryGame.generateArray = function(){
 // Clear Game
 MemoryGame.clearBoard = function(){
     document.getElementById("board").innerHTML = "";
-}
-
-// Turn off overlay
-function off() {
-    document.getElementById("overlay").style.display = "none";
 }
